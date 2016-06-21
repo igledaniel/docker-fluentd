@@ -1,0 +1,21 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - sudo pip install -U awscli
+    - docker build -t fluentd .
+
+test:
+  override:
+    - echo "production is the best test no?"
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - aws ecr get-login --region us-east-1 > login.sh
+      - bash login.sh
+      - docker tag fluentd:latest 054973484287.dkr.ecr.us-east-1.amazonaws.com/fluentd:latest
+      - docker push 054973484287.dkr.ecr.us-east-1.amazonaws.com/fluentd:latest
