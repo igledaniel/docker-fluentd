@@ -1,6 +1,6 @@
 FROM fluent/fluentd
 
-RUN fluent-gem install -q fluent-plugin-redis
+RUN fluent-gem install -q fluent-plugin-redis-store
 
 USER root
 RUN mkdir -p /fluentd/buffer && \
